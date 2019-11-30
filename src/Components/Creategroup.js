@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 
-class Addgroup extends Component {
+class Creategroup extends Component {
     constructor(props) {
         super(props);
         this.token = localStorage.getItem("access_token")
@@ -54,4 +54,4 @@ class Addgroup extends Component {
     }
 }
 
-export default Addgroup;
+export default Creategroup;
