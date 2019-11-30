@@ -35,16 +35,17 @@ class Groups extends Component {
   render() {
     return (
       <div>
-        <Link to="/addgroup">addgroup</Link>
+        <button><Link to="/addgroup">Create Group</Link></button>
         <div>
           {
             this.state.Groups.map((info, index) => <div key={index}>
-              <p><span>Name: </span>{info.name}</p>
-                { <p>
+              <p><span>Group Name: </span>{info.name}</p>
+                { <div>
                   <span>Posts: </span>{info.posts.map((post, index) => <div key={index}>
-                    <p>{post}</p>
+                    <p>Title: {post.title}</p>
+                    <p>Text: {post.text}</p>
                   </div>)}
-                  </p> 
+                  </div> 
                 }
             </div>)
           }

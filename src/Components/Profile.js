@@ -7,7 +7,7 @@ class Profile extends Component {
         this.token = localStorage.getItem("access_token")
         this.state = {
             username: '',
-            
+            groups: []
         }
     }
 
@@ -26,6 +26,16 @@ class Profile extends Component {
                 this.setState({
                     username: response.data.username
                 })
+            })
+            .catch(error => console.log(error));
+
+        axios.get('/user_groups',yourConfig)
+            .then(response => {
+               console.log(response.data)
+                this.setState({
+                    groups : response.data.groups
+                })
+                console.log(this.state.groups)
             })
             .catch(error => console.log(error));
     }
@@ -48,8 +58,14 @@ class Profile extends Component {
                                 <td>{this.state.last_name}</td>
                             </tr> */}
                             <tr>
-                                <td>username</td>
+                                <td>Username</td>
                                 <td>{this.state.username}</td>
+                            </tr>
+                            <tr>
+                                <td>User Groups</td>
+                                <td>{this.state.groups.map((group, index) => <div key={index}>
+                                    <p>{group}</p>
+                                </div>)}</td>
                             </tr>
                         </tbody>
                     </table>

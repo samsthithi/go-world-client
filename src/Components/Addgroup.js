@@ -18,6 +18,7 @@ class Addgroup extends Component {
     }
 
     onSubmit(e) {
+        // console.log('Add')
         e.preventDefault();
 
         var yourConfig = {
@@ -25,12 +26,12 @@ class Addgroup extends Component {
                Authorization: "JWT " + this.token
             }
          }
-        const user = {
-            group : '/' + this.state.groupname
-        };
+        // const user = {
+        //     group : '/' + this.state.groupname
+        // };
         console.log('Add')
-        axios.post('/group', yourConfig + user)
-            .then(response => {this.props.history.push(`/login`)})
+        axios.post('/group/' + this.state.groupname, yourConfig)
+            .then(response => {this.props.history.push(`/groups`)})
             .catch(error => console.log(error));
         
     }
@@ -38,7 +39,7 @@ class Addgroup extends Component {
     render () {
         return (
             <div>
-                <form>
+                <form onSubmit={this.onSubmit}>
                     <p>
                         Group Name: 
                     </p>
