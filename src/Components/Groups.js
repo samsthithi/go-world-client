@@ -56,8 +56,7 @@ class Groups extends Component {
         "headers": {
            "Authorization": "JWT " + this.token,
            "Content-Type": "application/json"
-        },
-        "group_name" : this.state.selectedGroup
+        }
      }
 
     var data = {

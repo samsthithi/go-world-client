@@ -1,14 +1,20 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import {Redirect} from 'react-router-dom'
 
 class Profile extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.token = localStorage.getItem("access_token")
         this.state = {
             username: '',
-            groups: []
+            groups: [],
+            group_name: '',
+            redirect: false
         }
+
+        this.onClick = this.onClick.bind(this)
+        // this.onSubmit = this.onSubmit.bind(this)
     }
 
     componentDidMount() {
@@ -18,11 +24,11 @@ class Profile extends Component {
                Authorization: "JWT " + this.token
             }
          }
-        console.log(this.token)
+        // console.log(this.token)
         // console.log("Mohit")
         axios.get('/profile',yourConfig)
             .then(response => {
-               console.log(response.data)
+            //    console.log(response.data)
                 this.setState({
                     username: response.data.username
                 })
@@ -31,13 +37,31 @@ class Profile extends Component {
 
         axios.get('/user_groups',yourConfig)
             .then(response => {
-               console.log(response.data)
+            //    console.log(response.data)
                 this.setState({
                     groups : response.data.groups
                 })
-                console.log(this.state.groups)
+                // console.log(this.state.groups)
             })
             .catch(error => console.log(error));
+    }
+
+    onClick(e) {
+        // console.log(e.target.value)
+        this.setState({
+            redirect: true,
+            group_name: e.target.value
+        })
+    }
+
+    renderRedirect = () => {
+        if (this.state.redirect) {
+          return <Redirect to={{
+                    pathname: '/grouppost',
+                    state: { id: this.state.group_name }
+                }}
+            />
+        }
     }
 
     render() {
@@ -64,7 +88,9 @@ class Profile extends Component {
                             <tr>
                                 <td>User Groups</td>
                                 <td>{this.state.groups.map((group, index) => <div key={index}>
-                                    <p>{group}</p>
+                                    {this.renderRedirect()}
+                                    <button value={group} onClick={this.onClick}>{group}
+                                    </button>
                                 </div>)}</td>
                             </tr>
                         </tbody>

@@ -8,6 +8,7 @@ import Login from './Components/Login'
 import Register from './Components/Register'
 import Profile from './Components/Profile'
 import Groups from './Components/Groups'
+import Grouppost from './Components/Grouppost';
 
 class App extends Component {
   render () {
@@ -22,6 +23,7 @@ class App extends Component {
             <Route exact path="/profile" component={Profile} />
             <Route exact path="/groups" component={Groups} />
             <Route exact path="/creategroup" component={Creategroup} />
+            <Route exact path="/grouppost" component={Grouppost} />
           </div>
         </div>
       </Router>
